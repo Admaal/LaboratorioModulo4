@@ -1,41 +1,107 @@
 import "./style.css";
 
 console.log("Hello Typescript!");
+let turno = 0;
 
-let numeroTurno = document.querySelector(".numero-turno") as HTMLElement;
-let botonSiguiente = document.querySelector(
-  ".boton-siguiente"
-) as HTMLButtonElement;
-let botonAnterior = document.querySelector(
-  ".boton-anterior"
-) as HTMLButtonElement;
-let botonResetear = document.querySelector(".boton-reset") as HTMLButtonElement;
-let IngresarTurno = document.querySelector(".input-turno") as HTMLInputElement;
+const numeroTurno = document.querySelector(".numero-turno");
+const botonSiguiente = document.querySelector(".boton-siguiente");
+const botonAnterior = document.querySelector(".boton-anterior");
+const botonResetear = document.querySelector(".boton-reset");
+const botonIngresar = document.querySelector(".boton-ingresar");
+const IngresarTurno = document.querySelector(".input-turno");
 
-botonSiguiente.addEventListener("click", () => {
-  let numeroTurnoActual = parseInt(numeroTurno.innerText);
-  numeroTurnoActual += 1;
-  numeroTurno.innerText = numeroTurnoActual.toString().padStart(2, "0");
-});
-
-botonAnterior.addEventListener("click", () => {
-  let numeroTurnoActual = parseInt(numeroTurno.innerText);
-  if (numeroTurnoActual > 0) {
-    numeroTurnoActual -= 1;
-    numeroTurno.innerText = numeroTurnoActual.toString().padStart(2, "0");
-  } else {
+const siguenteTurno = () => {
+  turno++;
+  if (
+    numeroTurno !== null &&
+    numeroTurno !== undefined &&
+    numeroTurno instanceof HTMLHeadingElement
+  ) {
+    numeroTurno.textContent = turno.toString().padStart(2, "0");
   }
-});
+};
 
-botonResetear.addEventListener("click", () => {
-  numeroTurno.innerText = "00";
-});
+if (
+  botonSiguiente !== null &&
+  botonSiguiente !== undefined &&
+  botonSiguiente instanceof HTMLButtonElement
+) {
+  botonSiguiente.addEventListener("click", () => {
+    siguenteTurno();
+  });
+}
 
-IngresarTurno.addEventListener("input", () => {
-  let nuevoTurno = parseInt(IngresarTurno.value);
-  if (!isNaN(nuevoTurno) && nuevoTurno >= 0) {
-    numeroTurno.innerText = nuevoTurno.toString().padStart(2, "0");
-  } else {
-    numeroTurno.innerText = "00";
+const turnoAnterior = () => {
+  if (turno > 0) {
+    turno--;
+    if (
+      numeroTurno !== null &&
+      numeroTurno !== undefined &&
+      numeroTurno instanceof HTMLHeadingElement
+    ) {
+      numeroTurno.textContent = turno.toString().padStart(2, "0");
+    }
   }
-});
+};
+
+if (
+  botonAnterior !== null &&
+  botonAnterior !== undefined &&
+  botonAnterior instanceof HTMLButtonElement
+) {
+  botonAnterior.addEventListener("click", () => {
+    turnoAnterior();
+  });
+}
+
+const resetearTurno = () => {
+  turno = 0;
+  if (
+    numeroTurno !== null &&
+    numeroTurno !== undefined &&
+    numeroTurno instanceof HTMLHeadingElement
+  ) {
+    numeroTurno.textContent = turno.toString().padStart(2, "0");
+  }
+};
+
+if (
+  botonResetear !== null &&
+  botonResetear !== undefined &&
+  botonResetear instanceof HTMLButtonElement
+) {
+  botonResetear.addEventListener("click", () => {
+    resetearTurno();
+  });
+}
+
+const ingresarTurno = () => {
+  if (
+    IngresarTurno !== null &&
+    IngresarTurno !== undefined &&
+    IngresarTurno instanceof HTMLInputElement
+  ) {
+    turno = parseInt(IngresarTurno.value);
+    if (isNaN(turno)) {
+      alert("Por favor, ingrese un número válido.");
+      return;
+    }
+    if (
+      numeroTurno !== null &&
+      numeroTurno !== undefined &&
+      numeroTurno instanceof HTMLHeadingElement
+    ) {
+      numeroTurno.textContent = turno.toString().padStart(2, "0");
+    }
+  }
+};
+
+if (
+  botonIngresar !== null &&
+  botonIngresar !== undefined &&
+  botonIngresar instanceof HTMLButtonElement
+) {
+  botonIngresar.addEventListener("click", () => {
+    ingresarTurno();
+  });
+}
